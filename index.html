@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO & Dev — Weekly Reports Hub</title>
+<meta name="description" content="Central hub for weekly SEO and development task reports across all hotel properties.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0c1220;
+    --ink-soft: #3d4a5c;
+    --ink-muted: #8896a7;
+    --surface: #f6f7f9;
+    --card: #ffffff;
+    --accent: #2e5bff;
+    --accent-glow: rgba(46,91,255,0.10);
+    --green: #0d9f6e;
+    --border: #e4e8ee;
+    --radius: 18px;
+    --shadow-sm: 0 1px 3px rgba(12,18,32,0.04);
+    --shadow-md: 0 4px 24px rgba(12,18,32,0.07);
+    --shadow-lg: 0 12px 48px rgba(12,18,32,0.10);
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Outfit', -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-body);
+    background: var(--surface);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes float { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-8px); } }
+  .fade-up { animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both; }
+  .d1 { animation-delay:0.1s; } .d2 { animation-delay:0.2s; } .d3 { animation-delay:0.3s; }
+  .d4 { animation-delay:0.4s; } .d5 { animation-delay:0.5s; } .d6 { animation-delay:0.6s; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(155deg, #0c1220 0%, #162038 35%, #1e3060 70%, #253a70 100%);
+    padding: 80px 0 72px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-orb-1 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(46,91,255,0.1) 0%, transparent 70%);
+    top: -150px; right: -80px;
+  }
+  .hero-orb-2 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(167,139,250,0.07) 0%, transparent 70%);
+    bottom: -100px; left: -50px;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 0 24px; }
+  .hero-eyebrow {
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(34px, 5vw, 52px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 18px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, #6b9aff, #a78bfa, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto;
+    font-weight: 400;
+  }
+
+  /* PROPERTIES BAR */
+  .properties-bar {
+    max-width: 860px;
+    margin: -30px auto 0;
+    padding: 0 24px;
+    position: relative;
+    z-index: 10;
+  }
+  .properties-inner {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .properties-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+  }
+  .properties-logos {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+  .prop-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 16px;
+    border-radius: 100px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    transition: all 0.25s;
+  }
+  .prop-chip:hover { border-color: var(--accent); color: var(--accent); }
+  .prop-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* REPORTS SECTION */
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 56px 0 8px;
+  }
+  .section-sub {
+    font-size: 14px;
+    color: var(--ink-muted);
+    margin-bottom: 28px;
+    font-weight: 400;
+  }
+
+  /* REPORT CARDS */
+  .report-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .report-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    transition: all 0.35s;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+  }
+  .report-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    border-radius: 0 4px 4px 0;
+    transition: all 0.3s;
+  }
+  .report-card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+  .report-card:hover::before { background: var(--accent); }
+  .report-left { flex: 1; min-width: 0; }
+  .report-week-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 8px;
+    background: var(--accent-glow);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .report-week-badge .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: float 3s ease-in-out infinite;
+  }
+  .report-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .report-desc {
+    font-size: 13.5px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+  .report-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .report-stats {
+    display: flex;
+    gap: 12px;
+  }
+  .report-stat {
+    text-align: center;
+    padding: 10px 16px;
+    background: var(--surface);
+    border-radius: 12px;
+    min-width: 72px;
+  }
+  .report-stat-val {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .report-stat-label {
+    font-size: 9px;
+    color: var(--ink-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+  .view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 24px;
+    border-radius: 100px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: var(--font-body);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    box-shadow: 0 2px 12px rgba(46,91,255,0.25);
+  }
+  .view-btn:hover {
+    background: #1a3eb8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(46,91,255,0.35);
+  }
+
+  /* PLACEHOLDER CARDS */
+  .report-card.upcoming {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .report-card.upcoming::after {
+    content: 'UPCOMING';
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--ink-muted);
+    letter-spacing: 0.12em;
+    background: var(--surface);
+    padding: 3px 10px;
+    border-radius: 6px;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 48px 0 32px;
+    font-size: 12px;
+    color: var(--ink-muted);
+    font-weight: 500;
+  }
+
+  @media (max-width: 700px) {
+    .hero { padding: 56px 0 56px; }
+    .report-card { flex-direction: column; align-items: flex-start; padding: 24px; }
+    .report-right { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
+    .properties-inner { padding: 18px 20px; }
+    .prop-chip { font-size: 11px; padding: 5px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-content fade-up">
+    <div class="hero-eyebrow">Reports Hub</div>
+    <h1>Weekly <em>SEO & Dev</em><br>Task Reports</h1>
+    <p class="hero-sub">Centralized dashboard for all weekly performance reports across hotel properties — SEO moderations, development tasks, and executive summaries.</p>
+  </div>
+</section>
+
+<!-- PROPERTIES BAR -->
+<div class="properties-bar fade-up d1">
+  <div class="properties-inner">
+    <div class="properties-label">Properties</div>
+    <div class="properties-logos">
+      <span class="prop-chip"><span class="prop-dot" style="background:#2e5bff"></span>Hotel June</span>
+      <span class="prop-chip"><span class="prop-dot" style="background:#7c3aed"></span>Proper Hotel</span>
+      <span class="prop-chip"><span class="prop-dot" style="background:#0891b2"></span>Shelborne</span>
+      <span class="prop-chip"><span class="prop-dot" style="background:#dc2626"></span>Avalon Hotel</span>
+      <span class="prop-chip"><span class="prop-dot" style="background:#059669"></span>Culver Hotel</span>
+      <span class="prop-chip"><span class="prop-dot" style="background:#0369a1"></span>Montauk Yacht Club</span>
+      <span class="prop-chip"><span class="prop-dot" style="background:#b45309"></span>Ingleside Estate</span>
+    </div>
+  </div>
+</div>
+
+<!-- REPORTS -->
+<div class="container">
+  <h2 class="section-title fade-up d2">Weekly Reports</h2>
+  <p class="section-sub fade-up d3">Click any report to view the full interactive breakdown with task details, links, and key wins.</p>
+
+  <div class="report-grid">
+
+    <!-- CURRENT WEEK — LIVE -->
+    <a href="./reports/week-mar-16-20-2026.html" class="report-card fade-up d4">
+      <div class="report-left">
+        <div class="report-week-badge"><span class="dot"></span> Latest Report</div>
+        <div class="report-title">Week of March 16–20, 2026</div>
+        <div class="report-desc">Alt tag optimization across all properties, structured data fixes, FAQ interlink audit, Easter event pages, blog launches, GMB analysis, UI/UX QA audit, live page launches, and staging deployments.</div>
+      </div>
+      <div class="report-right">
+        <div class="report-stats">
+          <div class="report-stat"><div class="report-stat-val">14</div><div class="report-stat-label">SEO</div></div>
+          <div class="report-stat"><div class="report-stat-val">18</div><div class="report-stat-label">Dev</div></div>
+          <div class="report-stat"><div class="report-stat-val">4</div><div class="report-stat-label">Design</div></div>
+        </div>
+        <span class="view-btn">View Report →</span>
+      </div>
+    </a>
+
+    <!-- PLACEHOLDERS FOR FUTURE WEEKS -->
+    <div class="report-card upcoming fade-up d5">
+      <div class="report-left">
+        <div class="report-title" style="color:var(--ink-muted)">Week of March 23–27, 2026</div>
+        <div class="report-desc">Report will be available at the end of the week.</div>
+      </div>
+      <div class="report-right">
+        <div class="report-stats">
+          <div class="report-stat"><div class="report-stat-val" style="color:var(--ink-muted)">—</div><div class="report-stat-label">SEO</div></div>
+          <div class="report-stat"><div class="report-stat-val" style="color:var(--ink-muted)">—</div><div class="report-stat-label">Dev</div></div>
+          <div class="report-stat"><div class="report-stat-val" style="color:var(--ink-muted)">—</div><div class="report-stat-label">Design</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-card upcoming fade-up d6">
+      <div class="report-left">
+        <div class="report-title" style="color:var(--ink-muted)">Week of March 30 – April 3, 2026</div>
+        <div class="report-desc">Report will be available at the end of the week.</div>
+      </div>
+      <div class="report-right">
+        <div class="report-stats">
+          <div class="report-stat"><div class="report-stat-val" style="color:var(--ink-muted)">—</div><div class="report-stat-label">SEO</div></div>
+          <div class="report-stat"><div class="report-stat-val" style="color:var(--ink-muted)">—</div><div class="report-stat-label">Dev</div></div>
+          <div class="report-stat"><div class="report-stat-val" style="color:var(--ink-muted)">—</div><div class="report-stat-label">Design</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+  <div class="footer">SEO & Dev Reports Hub · Hospitality Portfolio · 2026</div>
+</div>
+
+</body>
+</html>
